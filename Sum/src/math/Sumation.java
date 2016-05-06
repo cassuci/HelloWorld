@@ -5,13 +5,19 @@ import java.util.Scanner;
 public class Sumation {
 
 	public static void main(String[] args) {
+		int sum = 0;
+		int a;
+		
 		Scanner input = new Scanner(System.in);
 		
-		int a = input.nextInt();
+		a = 1;
+		while(a != 0){
+			a = input.nextInt();
+			sum += a;
+		}
 		
-		int b = input.nextInt();
 		
-		System.out.println("Sum = " + (a+b));
+		System.out.println("Sum = " + (sum));
 		
 		input.close();
 	}
