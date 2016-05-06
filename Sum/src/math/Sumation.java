@@ -17,7 +17,7 @@ public class Sumation {
 		}
 		
 		
-		System.out.println("Sum = " + (sum));
+		System.out.println("Soma = " + (sum));
 		
 		input.close();
 	}
