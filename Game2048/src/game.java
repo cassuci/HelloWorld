@@ -19,11 +19,13 @@ public class game {
 
 
 		while (hasZeros()){
-			if (valid)
+			if (valid){
 				createInt();
+				System.out.print("Score ");
+				System.out.println(score);	
+			}
 			print();
 			char c = input.next().charAt(0);
-			System.out.println("Key Pressed");
 			
 			if (c == 'w'){
 				score += shiftUp();
@@ -39,7 +41,7 @@ public class game {
 				valid = true;
 			}else{
 				System.out.println("Entrada inválida! Tente novamente.");
-				//valid = false;
+				valid = false;
 			}
 		}	
 		
@@ -50,10 +52,12 @@ public class game {
 	
 	private static int shiftRight() {
 		int i, j = 0;
+		int points = 0;
 		
 		for (j = 2; j >= 0; j--){
 			for (i = 0; i < 4; i++){
 				if (table[i][j] == table[i][j+1] && table[i][j] != 0){
+					points +=table[i][j];
 					table[i][j+1] *= 2;
 					table[i][j] = 0;
 				}else if (table[i][j] != 0 && table[i][j+1] == 0){
@@ -69,6 +73,7 @@ public class game {
 						}
 						if (j1 < 3){
 							if (table[i][j] == table[i1][j1+1]){
+								points +=table[i][j];
 								table[i1][j1+1] *= 2;
 								table[i][j] = 0;
 							}else{
@@ -86,25 +91,139 @@ public class game {
 				}
 			}
 		}
-		
-		
-		
-		return 0;
+		return points;
 	}
 
 	private static int shiftDown() {
-		// TODO Auto-generated method stub
-		return 0;
+		int i, j = 0;
+		int points = 0;
+		
+		for (i = 2; i >= 0; i--){
+			for (j = 0; j < 4; j++){
+				if (table[i][j] == table[i+1][j] && table[i][j] != 0){
+					points +=table[i][j];
+					table[i+1][j] *= 2;
+					table[i][j] = 0;
+				}else if (table[i][j] != 0 && table[i+1][j] == 0){
+					int i1 = i+1;
+					int j1 = j;
+
+					if (i1 < 3){
+						while (table[i1+1][j1]==0 && i1 < 2){
+							i1+=1;
+						}
+						if (i1 == 2 && table[i1+1][j1] == 0){
+							i1+=1;
+						}
+						if (i1 < 3){
+							if (table[i][j] == table[i1+1][j1]){
+								points +=table[i][j];
+								table[i1+1][j1] *= 2;
+								table[i][j] = 0;
+							}else{
+								table[i1][j1] = table[i][j];
+								table[i][j] = 0;
+							}
+						}else{
+							table[i1][j1] = table[i][j];
+							table[i][j] = 0;
+						}			
+					}else{
+						table[i1][j1] = table[i][j];
+						table[i][j]=0;
+					}
+				}
+			}
+		}
+		return points;
 	}
 
 	private static int shiftLeft() {
-		// TODO Auto-generated method stub
-		return 0;
+		int i, j = 0;
+		int points = 0;
+		
+		for (j = 1; j < 4; j++){
+			for (i = 0; i < 4; i++){
+				if (table[i][j] == table[i][j-1] && table[i][j] != 0){
+					points +=table[i][j];
+					table[i][j-1] *= 2;
+					table[i][j] = 0;
+				}else if (table[i][j] != 0 && table[i][j-1] == 0){
+					int i1 = i;
+					int j1 = j-1;
+
+					if (j1 > 0){
+						while (table[i1][j1-1]==0 && j1 > 1){
+							j1-=1;
+						}
+						if (j1 == 1 && table[i1][j1-1] == 0){
+							j1-=1;
+						}
+						if (j1 > 0){
+							if (table[i][j] == table[i1][j1-1]){
+								points +=table[i][j];
+								table[i1][j1-1] *= 2;
+								table[i][j] = 0;
+							}else{
+								table[i1][j1] = table[i][j];
+								table[i][j] = 0;
+							}
+						}else{
+							table[i1][j1] = table[i][j];
+							table[i][j] = 0;
+						}			
+					}else{
+						table[i1][j1] = table[i][j];
+						table[i][j]=0;
+					}
+				}
+			}
+		}
+		return points;
 	}
 
 	private static int shiftUp() {
-		// TODO Auto-generated method stub
-		return 0;
+		int i, j = 0;
+		int points = 0;
+		
+		for (i = 1; i < 4; i++){
+			for (j = 0; j < 4; j++){
+				if (table[i][j] == table[i-1][j] && table[i][j] != 0){
+					points +=table[i][j];
+					table[i-1][j] *= 2;
+					table[i][j] = 0;
+				}else if (table[i][j] != 0 && table[i-1][j] == 0){
+					int i1 = i-1;
+					int j1 = j;
+
+					if (i1 > 0){
+						while (table[i1-1][j1]==0 && i1 > 1){
+							i1-=1;
+						}
+						if (i1 == 1 && table[i1-1][j1] == 0){
+							i1-=1;
+						}
+						if (i1 > 0){
+							if (table[i][j] == table[i1-1][j1]){
+								points +=table[i][j];
+								table[i1-1][j1] *= 2;
+								table[i][j] = 0;
+							}else{
+								table[i1][j1] = table[i][j];
+								table[i][j] = 0;
+							}
+						}else{
+							table[i1][j1] = table[i][j];
+							table[i][j] = 0;
+						}			
+					}else{
+						table[i1][j1] = table[i][j];
+						table[i][j]=0;
+					}
+				}
+			}
+		}
+		return points;
 	}
 
 	private static void createInt(){
@@ -122,7 +241,6 @@ public class game {
 		int pos = -1;
 
 		pos = rand1.nextInt(list.size());
-		System.out.println(pos);
 		if (list.get(pos) != null){
 			i = list.get(pos).geti();
 			j = list.get(pos).getj();
